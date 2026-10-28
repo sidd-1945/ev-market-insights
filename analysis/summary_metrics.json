@@ -1,0 +1,433 @@
+{
+    "kpis": {
+        "total_records": 200000,
+        "total_manufacturers": 200,
+        "total_models": 199999,
+        "total_annual_sales": 1550703961.0,
+        "total_sales_display": "$1,550.7M",
+        "avg_customer_rating": 4.01,
+        "avg_driving_range_km": 324.54,
+        "avg_battery_capacity_kwh": 78.24
+    },
+    "category_distribution": {
+        "Two-Wheeler Scooter": 19652,
+        "Sedan": 17234,
+        "Hatchback": 17142,
+        "Compact SUV": 17137,
+        "Three-Wheeler": 15056,
+        "Crossover": 14924,
+        "Luxury Sedan": 13023,
+        "Full-size SUV": 12915,
+        "Micro City Car": 12808,
+        "Pickup Truck": 10785,
+        "Van / MPV": 10763,
+        "Luxury SUV": 10749,
+        "Electric Truck": 10619,
+        "Electric Bus": 8618,
+        "Sports Car": 8575
+    },
+    "manufacturer_market_share": {
+        "AmpereWorks": 9453209.0,
+        "CircuitWorks": 8919177.0,
+        "MomentumMobility": 8778501.0,
+        "SurgeDynamics": 8763611.0,
+        "TerraMotors": 8746119.0,
+        "AmpereDynamics": 8721216.0,
+        "VoltMobility": 8718601.0,
+        "CurrentMotors": 8711573.0,
+        "WattWheels": 8689635.0,
+        "CircuitRides": 8658233.0
+    },
+    "annual_sales_trend": {
+        "2018": 172072584.0,
+        "2019": 176980064.0,
+        "2020": 171797586.0,
+        "2021": 165815039.0,
+        "2022": 170782068.0,
+        "2023": 172419808.0,
+        "2024": 176888761.0,
+        "2025": 173171808.0,
+        "2026": 170776243.0
+    },
+    "battery_technology_share": {
+        "NMC": 67673,
+        "LFP": 64036,
+        "NCA": 34099,
+        "Sodium-Ion": 20089,
+        "Solid-State": 14103
+    },
+    "battery_technology_percentage": {
+        "NMC": 33.84,
+        "LFP": 32.02,
+        "NCA": 17.05,
+        "Sodium-Ion": 10.04,
+        "Solid-State": 7.05
+    },
+    "country_distribution": {
+        "India": 20231,
+        "South Korea": 20138,
+        "UK": 20098,
+        "USA": 20086,
+        "China": 20052,
+        "Germany": 20010,
+        "France": 19992,
+        "Sweden": 19921,
+        "Vietnam": 19858,
+        "Japan": 19614
+    },
+    "customer_rating_by_category": [
+        {
+            "category": "Two-Wheeler Scooter",
+            "count": 19652,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Sedan",
+            "count": 17234,
+            "avg_rating": 4.02
+        },
+        {
+            "category": "Hatchback",
+            "count": 17142,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Compact SUV",
+            "count": 17137,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Three-Wheeler",
+            "count": 15056,
+            "avg_rating": 4.0
+        },
+        {
+            "category": "Crossover",
+            "count": 14924,
+            "avg_rating": 4.0
+        },
+        {
+            "category": "Luxury Sedan",
+            "count": 13023,
+            "avg_rating": 3.99
+        },
+        {
+            "category": "Full-size SUV",
+            "count": 12915,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Micro City Car",
+            "count": 12808,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Pickup Truck",
+            "count": 10785,
+            "avg_rating": 4.02
+        },
+        {
+            "category": "Van / MPV",
+            "count": 10763,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Luxury SUV",
+            "count": 10749,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Electric Truck",
+            "count": 10619,
+            "avg_rating": 4.01
+        },
+        {
+            "category": "Electric Bus",
+            "count": 8618,
+            "avg_rating": 4.0
+        },
+        {
+            "category": "Sports Car",
+            "count": 8575,
+            "avg_rating": 4.01
+        }
+    ],
+    "scenarios": {
+        "emily_strategy": [
+            {
+                "category": "Two-Wheeler Scooter",
+                "total_sales": 174615722.0,
+                "avg_range_km": 104.96,
+                "models": 19652
+            },
+            {
+                "category": "Hatchback",
+                "total_sales": 154913963.0,
+                "avg_range_km": 279.7,
+                "models": 17142
+            },
+            {
+                "category": "Compact SUV",
+                "total_sales": 153423011.0,
+                "avg_range_km": 369.37,
+                "models": 17137
+            },
+            {
+                "category": "Sedan",
+                "total_sales": 153351587.0,
+                "avg_range_km": 429.62,
+                "models": 17234
+            },
+            {
+                "category": "Three-Wheeler",
+                "total_sales": 133134035.0,
+                "avg_range_km": 130.27,
+                "models": 15056
+            },
+            {
+                "category": "Crossover",
+                "total_sales": 132304173.0,
+                "avg_range_km": 395.1,
+                "models": 14924
+            },
+            {
+                "category": "Micro City Car",
+                "total_sales": 115413538.0,
+                "avg_range_km": 150.17,
+                "models": 12808
+            },
+            {
+                "category": "Luxury Sedan",
+                "total_sales": 115272864.0,
+                "avg_range_km": 550.64,
+                "models": 13023
+            },
+            {
+                "category": "Full-size SUV",
+                "total_sales": 114667715.0,
+                "avg_range_km": 474.63,
+                "models": 12915
+            },
+            {
+                "category": "Van / MPV",
+                "total_sales": 97658601.0,
+                "avg_range_km": 319.57,
+                "models": 10763
+            },
+            {
+                "category": "Luxury SUV",
+                "total_sales": 95909210.0,
+                "avg_range_km": 524.8,
+                "models": 10749
+            },
+            {
+                "category": "Sports Car",
+                "total_sales": 73955673.0,
+                "avg_range_km": 375.47,
+                "models": 8575
+            },
+            {
+                "category": "Electric Truck",
+                "total_sales": 12923461.0,
+                "avg_range_km": 225.59,
+                "models": 10619
+            },
+            {
+                "category": "Pickup Truck",
+                "total_sales": 12811256.0,
+                "avg_range_km": 390.67,
+                "models": 10785
+            },
+            {
+                "category": "Electric Bus",
+                "total_sales": 10349152.0,
+                "avg_range_km": 269.76,
+                "models": 8618
+            }
+        ],
+        "david_bi": {
+            "China": [
+                {
+                    "manufacturer": "MomentumWheels",
+                    "sales": 1412861.0
+                },
+                {
+                    "manufacturer": "CurrentMotors",
+                    "sales": 1329044.0
+                },
+                {
+                    "manufacturer": "VoltaEV",
+                    "sales": 1190720.0
+                }
+            ],
+            "France": [
+                {
+                    "manufacturer": "IonAutomotive",
+                    "sales": 1686418.0
+                },
+                {
+                    "manufacturer": "ElektraMobility",
+                    "sales": 1383041.0
+                },
+                {
+                    "manufacturer": "AmpereDynamics",
+                    "sales": 1249145.0
+                }
+            ],
+            "Germany": [
+                {
+                    "manufacturer": "ElektraEV",
+                    "sales": 1305021.0
+                },
+                {
+                    "manufacturer": "CircuitRides",
+                    "sales": 1285919.0
+                },
+                {
+                    "manufacturer": "TorqueAuto",
+                    "sales": 1254593.0
+                }
+            ],
+            "India": [
+                {
+                    "manufacturer": "MomentumMobility",
+                    "sales": 1392527.0
+                },
+                {
+                    "manufacturer": "CurrentWorks",
+                    "sales": 1336593.0
+                },
+                {
+                    "manufacturer": "SurgeDynamics",
+                    "sales": 1310830.0
+                }
+            ],
+            "Japan": [
+                {
+                    "manufacturer": "VelocityGroup",
+                    "sales": 1205580.0
+                },
+                {
+                    "manufacturer": "AmpereDynamics",
+                    "sales": 1161238.0
+                },
+                {
+                    "manufacturer": "MomentumWheels",
+                    "sales": 1033398.0
+                }
+            ],
+            "South Korea": [
+                {
+                    "manufacturer": "SurgeMotors",
+                    "sales": 1390741.0
+                },
+                {
+                    "manufacturer": "WattAuto",
+                    "sales": 1222052.0
+                },
+                {
+                    "manufacturer": "DynamoEV",
+                    "sales": 1209550.0
+                }
+            ],
+            "Sweden": [
+                {
+                    "manufacturer": "MomentumMobility",
+                    "sales": 1341807.0
+                },
+                {
+                    "manufacturer": "DynamoEV",
+                    "sales": 1161296.0
+                },
+                {
+                    "manufacturer": "VoltMobility",
+                    "sales": 1132987.0
+                }
+            ],
+            "UK": [
+                {
+                    "manufacturer": "AxleDynamics",
+                    "sales": 1113649.0
+                },
+                {
+                    "manufacturer": "TorqueMotors",
+                    "sales": 1101377.0
+                },
+                {
+                    "manufacturer": "KineticAutomotive",
+                    "sales": 1090173.0
+                }
+            ],
+            "USA": [
+                {
+                    "manufacturer": "AmpereWorks",
+                    "sales": 1744988.0
+                },
+                {
+                    "manufacturer": "IonEV",
+                    "sales": 1231703.0
+                },
+                {
+                    "manufacturer": "MomentumAuto",
+                    "sales": 1173394.0
+                }
+            ],
+            "Vietnam": [
+                {
+                    "manufacturer": "TerraMotors",
+                    "sales": 1468380.0
+                },
+                {
+                    "manufacturer": "VelocityGroup",
+                    "sales": 1143513.0
+                },
+                {
+                    "manufacturer": "ChargeGroup",
+                    "sales": 1136308.0
+                }
+            ]
+        },
+        "sarah_sustainability": [
+            {
+                "battery_type": "NMC",
+                "total_vehicles": 67673,
+                "avg_range_km": 324.34,
+                "avg_capacity_kwh": 78.25,
+                "avg_co2_saved_tons": 3.69,
+                "avg_degradation_5yr_pct": 14.03
+            },
+            {
+                "battery_type": "LFP",
+                "total_vehicles": 64036,
+                "avg_range_km": 324.15,
+                "avg_capacity_kwh": 78.32,
+                "avg_co2_saved_tons": 3.69,
+                "avg_degradation_5yr_pct": 10.13
+            },
+            {
+                "battery_type": "NCA",
+                "total_vehicles": 34099,
+                "avg_range_km": 325.04,
+                "avg_capacity_kwh": 77.91,
+                "avg_co2_saved_tons": 3.68,
+                "avg_degradation_5yr_pct": 14.04
+            },
+            {
+                "battery_type": "Sodium-Ion",
+                "total_vehicles": 20089,
+                "avg_range_km": 325.89,
+                "avg_capacity_kwh": 78.09,
+                "avg_co2_saved_tons": 3.69,
+                "avg_degradation_5yr_pct": 14.01
+            },
+            {
+                "battery_type": "Solid-State",
+                "total_vehicles": 14103,
+                "avg_range_km": 324.07,
+                "avg_capacity_kwh": 78.84,
+                "avg_co2_saved_tons": 3.71,
+                "avg_degradation_5yr_pct": 7.44
+            }
+        ]
+    }
+}

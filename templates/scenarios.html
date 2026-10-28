@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stakeholder Scenarios | EV Market Performance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <a href="/" class="logo">
+            <span>⚡</span> EV Insights
+        </a>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/story">Story</a>
+            <a href="/scenarios" class="active">Scenarios</a>
+        </nav>
+        <div class="nav-cta">
+            <a href="/dashboard" class="btn btn-primary">Open Dashboard</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1300px; margin: 3rem auto; padding: 0 2rem;">
+        
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; color: #fff; margin-bottom: 0.6rem;">Target Stakeholder Scenarios</h1>
+            <p style="color: var(--text-secondary); max-width: 750px; margin: 0 auto;">How our business intelligence platform addresses the exact research and commercial requirements of the three key decision-makers.</p>
+        </div>
+
+        <!-- Scenario 1: Emily Johnson -->
+        <div class="story-scene" style="margin-bottom: 2.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <span class="story-persona">Scenario 1: Corporate EV Strategy</span>
+                    <h2 style="font-size: 1.8rem; color: #fff;">Emily Johnson</h2>
+                    <p style="color: var(--accent-orange); font-weight: 600;">EV Market Strategy Director — Global OEM</p>
+                </div>
+                <div style="background: #111520; padding: 0.8rem 1.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">PRIMARY OBJECTIVE</div>
+                    <div style="color: #fff; font-weight: 700;">Vehicle Portfolio & Pricing Optimization</div>
+                </div>
+            </div>
+
+            <div style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+                <strong>Problem & Decision Context:</strong> Emily is tasked with allocating capital for next-generation vehicle line investments. She must know which vehicle categories drive volume versus margin, and whether high-cost battery chemistries translate into higher customer satisfaction.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem;">
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 0.4rem;">1. Urban Mobility Volume</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Two-Wheeler Scooters and Hatchbacks account for the highest unit sales volume globally, driven by congestion and affordability.</p>
+                </div>
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-orange); font-weight: 700; margin-bottom: 0.4rem;">2. Range vs Price Sweet Spot</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">The 300–350 km driving range bracket yields the highest customer rating-to-price ratio for passenger sedans and SUVs.</p>
+                </div>
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-blue); font-weight: 700; margin-bottom: 0.4rem;">3. Executive Recommendation</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Develop modular LFP platforms for mass-market Hatchbacks and Compact SUVs to undercut legacy ICE alternatives.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 2: David Chen -->
+        <div class="story-scene" style="margin-bottom: 2.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <span class="story-persona">Scenario 2: Automotive Market Advisory</span>
+                    <h2 style="font-size: 1.8rem; color: #fff;">David Chen</h2>
+                    <p style="color: var(--accent-orange); font-weight: 600;">Business Intelligence Manager — International Consulting Firm</p>
+                </div>
+                <div style="background: #111520; padding: 0.8rem 1.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">PRIMARY OBJECTIVE</div>
+                    <div style="color: #fff; font-weight: 700;">OEM Benchmarking & Market Entry Strategy</div>
+                </div>
+            </div>
+
+            <div style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+                <strong>Problem & Decision Context:</strong> David advises automotive clients entering the EV ecosystem. His clients need granular intelligence on manufacturer market shares, production country advantages, and competitive gaps among market leaders like AmpereWorks and CircuitWorks.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem;">
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 0.4rem;">1. Fragmented Leadership</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">The top 5 OEMs are separated by less than $700K in sales revenue, indicating high vulnerability to competitive disruption.</p>
+                </div>
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-orange); font-weight: 700; margin-bottom: 0.4rem;">2. Production Localization</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">India, the United States, and China produce ~20,000 models each; entering without local manufacturing incurs prohibitive tariff penalties.</p>
+                </div>
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-blue); font-weight: 700; margin-bottom: 0.4rem;">3. Client Advisory</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Advise new entrants to establish joint ventures with Tier-2 battery assemblers in Southeast Asia and North America.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario 3: Dr. Sarah Williams -->
+        <div class="story-scene">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <span class="story-persona">Scenario 3: Sustainable Transportation Research</span>
+                    <h2 style="font-size: 1.8rem; color: #fff;">Dr. Sarah Williams</h2>
+                    <p style="color: var(--accent-orange); font-weight: 600;">Sustainable Mobility Research Analyst — Clean Energy Institute</p>
+                </div>
+                <div style="background: #111520; padding: 0.8rem 1.4rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">PRIMARY OBJECTIVE</div>
+                    <div style="color: #fff; font-weight: 700;">Battery Lifecycle & Decarbonization Assessment</div>
+                </div>
+            </div>
+
+            <div style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+                <strong>Problem & Decision Context:</strong> Dr. Williams evaluates environmental trade-offs between battery chemistries, vehicle weight, and long-term battery degradation to advise policymakers on clean transit subsidies.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-bottom: 1.5rem;">
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-green); font-weight: 700; margin-bottom: 0.4rem;">1. Decarbonization Impact</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Electric commercial buses and delivery trucks deliver 4.2x more annual CO2 offsets per kWh of battery capacity than private sedans.</p>
+                </div>
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-orange); font-weight: 700; margin-bottom: 0.4rem;">2. Chemistry Degradation</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">LFP and Sodium-ion demonstrate superior 5-year retention rates (8.4% degradation) compared to high-nickel NCA (12.1%).</p>
+                </div>
+                <div style="background: #0d1017; padding: 1.2rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="color: var(--accent-blue); font-weight: 700; margin-bottom: 0.4rem;">3. Policy Recommendation</div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Direct government zero-emission grants toward public transit electrification and sodium-ion supply chains.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Electric Vehicle Market Performance & Insights | Minor Project | SmartBridge & SkillWallet</p>
+    </footer>
+
+</body>
+</html>

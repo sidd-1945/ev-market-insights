@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Dashboard | EV Market Performance & Insights</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <a href="/" class="logo">
+            <span>⚡</span> EV Insights
+        </a>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard" class="active">Dashboard</a>
+            <a href="/story">Story</a>
+            <a href="/scenarios">Scenarios</a>
+        </nav>
+        <div class="nav-cta">
+            <button onclick="toggleTableauView()" class="btn btn-outline" id="toggleViewBtn">View Tableau Public Embed</button>
+            <a href="/story" class="btn btn-secondary">Explore Story</a>
+        </div>
+    </header>
+
+    <main style="max-width: 1400px; margin: 2rem auto; padding: 0 2rem; width: 100%;">
+        
+        <!-- Dashboard Header -->
+        <div style="margin-bottom: 2rem;">
+            <h1 style="font-size: 2.4rem; color: #fff; margin-bottom: 0.5rem;">EV Market Performance & Insights</h1>
+            <p style="color: var(--text-secondary);">Interactive executive analytics engine covering 200,000 records across 200 manufacturers worldwide.</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid" style="margin-bottom: 2rem;">
+            <div class="kpi-card">
+                <div class="kpi-title">Total Records</div>
+                <div class="kpi-value" id="kpiRecords">200,000</div>
+                <div class="kpi-subtitle">Loaded in Memory</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Total Manufacturers</div>
+                <div class="kpi-value" id="kpiManufacturers">200</div>
+                <div class="kpi-subtitle">Global OEM Competitors</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Annual Sales (Units/Rev)</div>
+                <div class="kpi-value" id="kpiSales">$1,550.7M</div>
+                <div class="kpi-subtitle">1.55B Units Sold</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Avg Customer Rating</div>
+                <div class="kpi-value" id="kpiRating">4.01 / 5</div>
+                <div class="kpi-subtitle">Satisfaction Index</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Avg Driving Range</div>
+                <div class="kpi-value" id="kpiRange">324.54 km</div>
+                <div class="kpi-subtitle">Per Charge Efficiency</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Avg Battery Capacity</div>
+                <div class="kpi-value" id="kpiCapacity">78.24 kWh</div>
+                <div class="kpi-subtitle">Energy Storage Metric</div>
+            </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label for="filterCountry">Country:</label>
+                <select id="filterCountry">
+                    <option value="All">All Countries</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterCategory">EV Category:</label>
+                <select id="filterCategory">
+                    <option value="All">All Categories</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterMfg">Manufacturer:</label>
+                <select id="filterMfg">
+                    <option value="All">All Manufacturers</option>
+                </select>
+            </div>
+            <button id="applyFilterBtn" class="btn btn-primary">Apply Filters</button>
+            <button id="resetFilterBtn" class="btn btn-secondary">Reset</button>
+            <span style="margin-left: auto; font-size: 0.85rem; color: var(--accent-green);">● Live In-Memory SQLite Engine</span>
+        </div>
+
+        <!-- Interactive Charts Grid -->
+        <div id="nativeChartsView">
+            <div class="charts-grid">
+                <!-- Chart 1: EV Category Distribution -->
+                <div class="chart-card col-6">
+                    <div class="chart-header">
+                        <div class="chart-title">EV Category Performance & Distribution</div>
+                        <span class="chart-badge">Volume</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Manufacturer Market Share -->
+                <div class="chart-card col-6">
+                    <div class="chart-header">
+                        <div class="chart-title">Market Share by Manufacturer (Top 10)</div>
+                        <span class="chart-badge">Sales ($M)</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="mfgChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Annual Sales Trend -->
+                <div class="chart-card col-8">
+                    <div class="chart-header">
+                        <div class="chart-title">Annual EV Sales Trend by Model Year (2018–2026)</div>
+                        <span class="chart-badge">Growth Curve</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 4: Battery Technology Market Share -->
+                <div class="chart-card col-4">
+                    <div class="chart-header">
+                        <div class="chart-title">Battery Technology Share</div>
+                        <span class="chart-badge">Chemistry %</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="batteryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 5: Geographic Manufacturing Distribution -->
+                <div class="chart-card col-12">
+                    <div class="chart-header">
+                        <div class="chart-title">Electric Vehicle Distribution by Manufacturing Country</div>
+                        <span class="chart-badge">Global Footprint</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="countryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau Public Embedded Section -->
+        <div id="tableauView" class="tableau-box" style="display: none;">
+            <div class="tableau-notice">
+                <div>
+                    <strong>Tableau Public Cloud Integration</strong>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
+                        Embed your published Tableau Public workbook here to satisfy the SkillWallet web integration requirement.
+                    </p>
+                </div>
+                <button onclick="toggleTableauView()" class="btn btn-secondary">Switch to Native Analytics</button>
+            </div>
+
+            <div class="tableau-embed-frame">
+                <!-- Tableau Public Interactive Embed -->
+                <div class='tableauPlaceholder' id='viz1700000000000' style='position: relative; width: 100%; height: 850px;'>
+                    <noscript>
+                        <a href='#'>
+                            <img alt='EV Market Performance &amp; Insights ' src='https://public.tableau.com/static/images/EV/EVMarketPerformance/Dashboard/1_rss.png' style='border: none' />
+                        </a>
+                    </noscript>
+                    <object class='tableauViz' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='embed_code_version' value='3' />
+                        <param name='site_root' value='' />
+                        <param name='name' value='EVMarketPerformance/Dashboard' />
+                        <param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                        <param name='animate_transition' value='yes' />
+                        <param name='display_static_image' value='yes' />
+                        <param name='display_spinner' value='yes' />
+                        <param name='display_overlay' value='yes' />
+                        <param name='display_count' value='yes' />
+                        <param name='language' value='en-US' />
+                    </object>
+                </div>
+                <script type='text/javascript'>
+                    var divElement = document.getElementById('viz1700000000000');
+                    var vizElement = divElement.getElementsByTagName('object')[0];
+                    if (divElement.offsetWidth > 800) {
+                        vizElement.style.width='100%';
+                        vizElement.style.height='850px';
+                    } else {
+                        vizElement.style.width='100%';
+                        vizElement.style.height='1200px';
+                    }
+                    var scriptElement = document.createElement('script');
+                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+                </script>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Electric Vehicle Market Performance & Insights | Minor Project | SmartBridge & SkillWallet</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script>
+        function toggleTableauView() {
+            const nativeView = document.getElementById('nativeChartsView');
+            const tableauView = document.getElementById('tableauView');
+            const btn = document.getElementById('toggleViewBtn');
+
+            if (tableauView.style.display === 'none') {
+                tableauView.style.display = 'block';
+                nativeView.style.display = 'none';
+                btn.textContent = 'View Native Charts';
+            } else {
+                tableauView.style.display = 'none';
+                nativeView.style.display = 'block';
+                btn.textContent = 'View Tableau Public Embed';
+            }
+        }
+    </script>
+</body>
+</html>

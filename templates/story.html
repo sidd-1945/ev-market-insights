@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Story | EV Market Performance & Insights</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <a href="/" class="logo">
+            <span>⚡</span> EV Insights
+        </a>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/story" class="active">Story</a>
+            <a href="/scenarios">Scenarios</a>
+        </nav>
+        <div class="nav-cta">
+            <a href="/dashboard" class="btn btn-primary">Open Dashboard</a>
+        </div>
+    </header>
+
+    <div class="story-container">
+        
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem;">The Global EV Transformation: A Data Story</h1>
+            <p style="color: var(--text-secondary);">An 8-part analytical narrative uncovering market adoption, OEM competitiveness, and battery evolution.</p>
+        </div>
+
+        <!-- Story Navigation Tabs -->
+        <div class="story-nav" id="storyNav">
+            <button class="story-pill active" onclick="switchScene(0)">1. Market Overview</button>
+            <button class="story-pill" onclick="switchScene(1)">2. Category Growth</button>
+            <button class="story-pill" onclick="switchScene(2)">3. Leading OEMs</button>
+            <button class="story-pill" onclick="switchScene(3)">4. Customer Sentiment</button>
+            <button class="story-pill" onclick="switchScene(4)">5. 2018–2026 Trend</button>
+            <button class="story-pill" onclick="switchScene(5)">6. Battery Evolution</button>
+            <button class="story-pill" onclick="switchScene(6)">7. Global Footprint</button>
+            <button class="story-pill" onclick="switchScene(7)">8. Strategic Takeaways</button>
+        </div>
+
+        <!-- Story Scene Card -->
+        <div class="story-scene" id="sceneContainer">
+            <span class="story-persona" id="scenePersona">Executive Overview</span>
+            <div class="story-header">
+                <h2 id="sceneTitle">Scene 1: EV Market Performance at a Glance</h2>
+            </div>
+            <div class="story-content" id="sceneContent">
+                The global electric vehicle sector has transitioned from a niche environmental initiative into a multi-billion dollar industrial powerhouse. Across 200 manufacturers and nearly 18,000 unique models, annual sales units exceed 1.55 billion, demonstrating exponential consumer uptake. The average customer rating of 4.01/5 proves that customer satisfaction has caught up with conventional internal combustion vehicles.
+            </div>
+
+            <!-- Key Metric Spotlight for the Scene -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; background: #0f131a; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 2rem;" id="sceneSpotlight">
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">ANNUAL SALES</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #fff;">$1,550.7M Units</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">AVG DRIVING RANGE</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">324.54 km</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">CUSTOMER RATING</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);">4.01 / 5.0</div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn btn-secondary" onclick="prevScene()" id="prevBtn" disabled>&larr; Previous Scene</button>
+                <span style="color: var(--text-muted); font-size: 0.85rem;" id="sceneCounter">Scene 1 of 8</span>
+                <button class="btn btn-primary" onclick="nextScene()" id="nextBtn">Next Scene &rarr;</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Electric Vehicle Market Performance & Insights | Minor Project | SmartBridge & SkillWallet</p>
+    </footer>
+
+    <script>
+        const scenes = [
+            {
+                persona: "Executive Overview",
+                title: "Scene 1: EV Market Performance at a Glance",
+                content: "The global electric vehicle sector has transitioned from a niche environmental initiative into a multi-billion dollar industrial powerhouse. Across 200 manufacturers and nearly 18,000 unique models, annual sales units exceed 1.55 billion, demonstrating exponential consumer uptake. The average customer rating of 4.01/5 proves that customer satisfaction has caught up with conventional internal combustion vehicles.",
+                spotlight: [
+                    { label: "ANNUAL SALES", val: "$1,550.7M Units" },
+                    { label: "AVG DRIVING RANGE", val: "324.54 km" },
+                    { label: "CUSTOMER RATING", val: "4.01 / 5.0" }
+                ]
+            },
+            {
+                persona: "Emily Johnson (Strategy)",
+                title: "Scene 2: Understanding EV Category Distribution",
+                content: "Consumer demand is heavily concentrated in high-utility urban mobility. Two-Wheeler Scooters (19k+ models) and Hatchbacks (~17k models) dominate the volume hierarchy, reflecting price sensitivity in emerging markets. Meanwhile, Sedans and Compact SUVs command strong mid-range luxury pricing.",
+                spotlight: [
+                    { label: "TOP VOLUME SEGMENT", val: "Two-Wheeler Scooters" },
+                    { label: "URBAN ADOPTION", val: "Hatchbacks (17K+)" },
+                    { label: "COMMERCIAL EXPANSION", val: "Electric Buses & Trucks" }
+                ]
+            },
+            {
+                persona: "David Chen (BI Consulting)",
+                title: "Scene 3: Leading Manufacturers Driving the EV Market",
+                content: "Market leadership is highly competitive. AmpereWorks leads the pack with $9.45M in annual sales units, closely followed by CircuitWorks ($8.92M), MomentumMobility ($8.78M), SurgeDynamics ($8.76M), and TerraMotors ($8.75M). No single OEM monopolizes the space, creating opportunities for aggressive new market entrants.",
+                spotlight: [
+                    { label: "OEM LEADER", val: "AmpereWorks ($9.45M)" },
+                    { label: "SECOND LARGEST", val: "CircuitWorks ($8.92M)" },
+                    { label: "COMPETITIVE SPREAD", val: "< 8% Top-5 Delta" }
+                ]
+            },
+            {
+                persona: "Dr. Sarah Williams (Mobility Research)",
+                title: "Scene 4: Customer Engagement Across EV Categories",
+                content: "Customer rating distributions reveal that Compact SUVs and Sedans score the highest consistency in positive feedback (average 4.12/5). Improvements in cabin comfort, regenerative braking, and infotainment responsiveness have largely mitigated historical consumer anxieties.",
+                spotlight: [
+                    { label: "HIGHEST RATED SEGMENT", val: "Compact SUVs" },
+                    { label: "AVG USER RATING", val: "4.01 / 5.0" },
+                    { label: "RANGE SATISFACTION", val: "> 300 km Baseline" }
+                ]
+            },
+            {
+                persona: "Executive Intelligence",
+                title: "Scene 5: Growth Trend in Annual EV Sales (2018–2026)",
+                content: "The multi-year trajectory shows consistent acceleration: starting from 17.1M units in 2018, rising to 20.4M in 2021, and continuing toward a record peak of 20.6M units in 2026. This trajectory confirms that electric vehicle adoption has crossed the technology chasm into mainstream consumer adoption.",
+                spotlight: [
+                    { label: "2018 SALES BASE", val: "17.13M Units" },
+                    { label: "2021 SURGE", val: "20.44M Units" },
+                    { label: "2026 PROJECTED PEAK", val: "20.62M Units" }
+                ]
+            },
+            {
+                persona: "Dr. Sarah Williams (Sustainability)",
+                title: "Scene 6: Battery Technology Market Share & Degradation",
+                content: "Nickel Manganese Cobalt (NMC, 34%) and Lithium Iron Phosphate (LFP, 32%) represent two-thirds of all production EVs. While NMC delivers superior energy density and highway driving range, LFP provides lower cost and 5-year degradation below 9%. Sodium-ion is rapidly gaining 10% market share as a lithium-free alternative.",
+                spotlight: [
+                    { label: "NMC ADOPTION", val: "33.84% Share" },
+                    { label: "LFP ADOPTION", val: "32.02% Share" },
+                    { label: "SODIUM-ION GROWTH", val: "10.04% Emerging" }
+                ]
+            },
+            {
+                persona: "David Chen (Geographic Insights)",
+                title: "Scene 7: Global EV Manufacturing Footprint",
+                content: "Manufacturing capacity is geographically balanced across core industrial hubs: India (20,231 models), United States (20,086 models), China (20,052 models), South Korea (20,186 models), and Sweden (20,121 models). Regional policy incentives and battery supply chains dictate localized manufacturing dominance.",
+                spotlight: [
+                    { label: "ASIA-PACIFIC CAPACITY", val: "India, China, S. Korea" },
+                    { label: "NORTH AMERICA", val: "USA (20K+ Models)" },
+                    { label: "EUROPE", val: "Sweden, Germany, France" }
+                ]
+            },
+            {
+                persona: "Strategic Synthesis",
+                title: "Scene 8: Strategic Takeaways & Recommendations",
+                content: "For Strategy Directors (Emily), double down on LFP-powered Hatchbacks and Compact SUVs for emerging economies. For BI Consultants (David), partner with Tier-2 OEMs to capture market share from AmpereWorks. For Sustainability Researchers (Sarah), recommend municipal incentives for Sodium-ion transit fleets.",
+                spotlight: [
+                    { label: "FOR STRATEGY (EMILY)", val: "Focus on Urban Utility" },
+                    { label: "FOR BI (DAVID)", val: "Differentiate Against Top 5" },
+                    { label: "FOR POLICY (SARAH)", val: "Incentivize LFP/Sodium-Ion" }
+                ]
+            }
+        ];
+
+        let currentSceneIndex = 0;
+
+        function updateSceneUI() {
+            const sc = scenes[currentSceneIndex];
+            document.getElementById('scenePersona').textContent = sc.persona;
+            document.getElementById('sceneTitle').textContent = sc.title;
+            document.getElementById('sceneContent').textContent = sc.content;
+            document.getElementById('sceneCounter').textContent = `Scene ${currentSceneIndex + 1} of ${scenes.length}`;
+
+            // Spotlight cards
+            const spotContainer = document.getElementById('sceneSpotlight');
+            spotContainer.innerHTML = sc.spotlight.map(item => `
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">${item.label}</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: #fff;">${item.val}</div>
+                </div>
+            `).join('');
+
+            // Update nav pills
+            const pills = document.querySelectorAll('.story-pill');
+            pills.forEach((p, idx) => {
+                if (idx === currentSceneIndex) {
+                    p.classList.add('active');
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+
+            document.getElementById('prevBtn').disabled = currentSceneIndex === 0;
+            document.getElementById('nextBtn').disabled = currentSceneIndex === scenes.length - 1;
+        }
+
+        function switchScene(idx) {
+            currentSceneIndex = idx;
+            updateSceneUI();
+        }
+
+        function nextScene() {
+            if (currentSceneIndex < scenes.length - 1) {
+                currentSceneIndex++;
+                updateSceneUI();
+            }
+        }
+
+        function prevScene() {
+            if (currentSceneIndex > 0) {
+                currentSceneIndex--;
+                updateSceneUI();
+            }
+        }
+    </script>
+</body>
+</html>

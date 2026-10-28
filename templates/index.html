@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Insights | Electric Vehicle Market Performance & Intelligence</title>
+    <!-- Chart.js for Interactive Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ========================================================
+           EV Market Performance & Insights - Executive Dark Theme
+           ======================================================== */
+        :root {
+            --bg-main: #0c0e14;
+            --bg-card: #151922;
+            --bg-card-hover: #1b212e;
+            --bg-navbar: #11141d;
+            --border-color: #242b3d;
+            --accent-orange: #f59e0b;
+            --accent-orange-hover: #d97706;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.1rem 4rem;
+            background: rgba(17, 20, 29, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-orange);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: #111827;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-orange-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #1f2533;
+            color: #ffffff;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #2a3346;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 5.5rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 60%);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-content h1 {
+            font-size: 3.3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+        }
+
+        .highlight {
+            color: var(--accent-orange);
+            position: relative;
+        }
+
+        .highlight::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: var(--accent-orange);
+            font-weight: 400;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 720px;
+            margin: 0 auto 2.2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .benchmark-card {
+            max-width: 540px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .benchmark-score {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .benchmark-score .score-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(245, 158, 11, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-orange);
+            font-size: 1.3rem;
+        }
+
+        .score-val {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .score-lbl {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .benchmark-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-align: right;
+        }
+
+        /* KPI Scorecard Grid */
+        .kpi-section {
+            padding: 3rem 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.4rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-orange);
+        }
+
+        .kpi-title {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .kpi-subtitle {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+        }
+
+        /* Dashboard Filter Bar */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .filter-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .filter-group select {
+            background: #0f131a;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-group select:focus {
+            border-color: var(--accent-orange);
+        }
+
+        /* Chart Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+        .col-8 { grid-column: span 8; }
+        .col-12 { grid-column: span 12; }
+
+        @media (max-width: 1024px) {
+            .col-4, .col-6, .col-8 { grid-column: span 12; }
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .chart-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .chart-badge {
+            font-size: 0.75rem;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-orange);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            min-height: 280px;
+            max-height: 380px;
+        }
+
+        /* Story Scenes UI */
+        .story-container {
+            max-width: 1400px;
+            margin: 2rem auto 4rem;
+            padding: 0 4rem;
+            width: 100%;
+        }
+
+        .story-nav {
+            display: flex;
+            overflow-x: auto;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-pill {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .story-pill.active {
+            background: var(--accent-orange);
+            color: #111827;
+            font-weight: 700;
+        }
+
+        .story-scene {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+        }
+
+        .story-persona {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .story-header h2 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-content {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Insights Behind Story (Car + 4 Cards) */
+        .insights-section {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2.5rem;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 3rem;
+            margin: 4rem auto;
+            max-width: 1400px;
+        }
+
+        @media (max-width: 992px) {
+            .insights-section { grid-template-columns: 1fr; }
+        }
+
+        .car-image-container {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #000;
+            min-height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .car-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .four-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .four-cards-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature-card {
+            background: #11141e;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 1.4rem;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .feature-card .f-icon {
+            font-size: 1.4rem;
+            color: var(--accent-orange);
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Scenarios Section */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .scenario-persona {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .scenario-role {
+            font-size: 0.85rem;
+            color: var(--accent-orange);
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+
+        .scenario-body {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-metrics {
+            list-style: none;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .scenario-metrics li {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Floating Back to Top Button */
+        .floating-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+            color: #11141d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+            transition: all 0.2s ease;
+            z-index: 999;
+        }
+
+        .floating-top-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent-orange-hover);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 2rem 3rem;
+            background: #090b10;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="top">
+        <a href="#top" class="logo">
+            <span>⚡</span> EV Insights
+        </a>
+        <nav class="nav-links">
+            <a href="#top" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#story">Story</a>
+            <a href="#scenarios">Scenarios</a>
+        </nav>
+        <div class="nav-cta">
+            <a href="#dashboard" class="btn btn-primary">Explore Dashboard</a>
+            <a href="#story" class="btn btn-secondary">Explore Story</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Transform Your Workflow With <span class="highlight">Seamless</span></h1>
+            <p>Explore live EV market intelligence, adoption trends, and the story behind the growth of electric mobility through a polished dashboard and narrative experience.</p>
+            <div class="hero-buttons">
+                <a href="#dashboard" class="btn btn-primary btn-hero">Explore the Dashboard &rarr;</a>
+                <a href="#story" class="btn btn-outline btn-hero">📖 Explore Story</a>
+            </div>
+
+            <!-- 89% Success Benchmark Card -->
+            <div class="benchmark-card">
+                <div class="benchmark-score">
+                    <div class="score-icon">📊</div>
+                    <div>
+                        <div class="score-val">89%</div>
+                        <div class="score-lbl">Success Benchmark</div>
+                    </div>
+                </div>
+                <div class="benchmark-meta">
+                    LAST 7 DAYS USING MEDIAN<br>
+                    <span style="color: var(--accent-green); font-weight: 600;">+12.4% EFFICIENCY LIFT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPI SCORECARD SECTION (PREVIOUS DESIGN) -->
+    <section class="kpi-section" id="kpis">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Total Manufacturers</div>
+                <div class="kpi-value" id="kpiMfg">200</div>
+                <div class="kpi-subtitle">Global OEM Ecosystem</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Total EV Models</div>
+                <div class="kpi-value" id="kpiModels">17,980+</div>
+                <div class="kpi-subtitle">Catalog across 10+ Categories</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Total Annual Sales</div>
+                <div class="kpi-value" id="kpiSales">$1,550.7M</div>
+                <div class="kpi-subtitle">Global Annual Volume</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Avg Customer Rating</div>
+                <div class="kpi-value" id="kpiRating">4.01 / 5</div>
+                <div class="kpi-subtitle">High Consumer Confidence</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Avg Driving Range</div>
+                <div class="kpi-value" id="kpiRange">324.54 km</div>
+                <div class="kpi-subtitle">Urban & Long-Distance Ready</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Avg Battery Capacity</div>
+                <div class="kpi-value" id="kpiCapacity">78.24 kWh</div>
+                <div class="kpi-subtitle">High Energy Density</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE DASHBOARD SECTION -->
+    <main style="max-width: 1400px; margin: 2rem auto; padding: 0 4rem; width: 100%;" id="dashboard">
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.3rem;">Interactive Executive Dashboard</h2>
+                <p style="color: var(--text-secondary);">Filter dynamically by country, vehicle category, and manufacturer to explore live metrics.</p>
+            </div>
+            <button onclick="resetDashboard()" class="btn btn-secondary">🔄 Reset Filters</button>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label for="countrySelect">Country:</label>
+                <select id="countrySelect" onchange="filterData()">
+                    <option value="All">All Countries</option>
+                    <option value="USA">USA</option>
+                    <option value="China">China</option>
+                    <option value="India">India</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="Vietnam">Vietnam</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="catSelect">EV Category:</label>
+                <select id="catSelect" onchange="filterData()">
+                    <option value="All">All Categories</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Compact SUV">Compact SUV</option>
+                    <option value="Two-Wheeler Scooter">Two-Wheeler Scooter</option>
+                    <option value="Three-Wheeler">Three-Wheeler</option>
+                    <option value="Electric Bus">Electric Bus</option>
+                    <option value="Electric Truck">Electric Truck</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="mfgSelect">Manufacturer:</label>
+                <select id="mfgSelect" onchange="filterData()">
+                    <option value="All">All Manufacturers</option>
+                    <option value="AmpereWorks">AmpereWorks</option>
+                    <option value="CircuitWorks">CircuitWorks</option>
+                    <option value="MomentumMobility">MomentumMobility</option>
+                    <option value="SurgeDynamics">SurgeDynamics</option>
+                    <option value="TerraMotors">TerraMotors</option>
+                </select>
+            </div>
+            <span style="margin-left: auto; font-size: 0.85rem; color: var(--accent-green); font-weight: 600;">
+                ● 200,000 Records In-Memory
+            </span>
+        </div>
+
+        <!-- Charts Grid (Previous Dark Design) -->
+        <div class="charts-grid">
+            <!-- Chart 1: EV Category Distribution -->
+            <div class="chart-card col-6">
+                <div class="chart-header">
+                    <div class="chart-title">EV Category Performance & Distribution</div>
+                    <span class="chart-badge">Volume</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: Manufacturer Market Share -->
+            <div class="chart-card col-6">
+                <div class="chart-header">
+                    <div class="chart-title">Market Share by Manufacturer (Top 10)</div>
+                    <span class="chart-badge">Sales ($M)</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="mfgChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 3: Annual Sales Trend -->
+            <div class="chart-card col-8">
+                <div class="chart-header">
+                    <div class="chart-title">Annual EV Sales Trend by Model Year (2018–2026)</div>
+                    <span class="chart-badge">Growth Curve</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 4: Battery Technology Market Share -->
+            <div class="chart-card col-4">
+                <div class="chart-header">
+                    <div class="chart-title">Battery Technology Share</div>
+                    <span class="chart-badge">Chemistry %</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="batteryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 5: Geographic Manufacturing Distribution -->
+            <div class="chart-card col-12">
+                <div class="chart-header">
+                    <div class="chart-title">Electric Vehicle Distribution by Manufacturing Country</div>
+                    <span class="chart-badge">Global Footprint</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="countryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- NARRATIVE DATA STORY SECTION (PREVIOUS DESIGN) -->
+    <section class="story-container" id="story">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem;">The Global EV Transformation: A Data Story</h2>
+            <p style="color: var(--text-secondary);">An 8-part analytical narrative uncovering market adoption, OEM competitiveness, and battery evolution.</p>
+        </div>
+
+        <!-- Story Nav Tabs -->
+        <div class="story-nav">
+            <button class="story-pill active" onclick="switchScene(0)">1. Market Overview</button>
+            <button class="story-pill" onclick="switchScene(1)">2. Category Growth</button>
+            <button class="story-pill" onclick="switchScene(2)">3. Leading OEMs</button>
+            <button class="story-pill" onclick="switchScene(3)">4. Customer Sentiment</button>
+            <button class="story-pill" onclick="switchScene(4)">5. 2018–2026 Trend</button>
+            <button class="story-pill" onclick="switchScene(5)">6. Battery Evolution</button>
+            <button class="story-pill" onclick="switchScene(6)">7. Global Footprint</button>
+            <button class="story-pill" onclick="switchScene(7)">8. Strategic Takeaways</button>
+        </div>
+
+        <!-- Story Scene Box -->
+        <div class="story-scene">
+            <span class="story-persona" id="scenePersona">Executive Overview</span>
+            <div class="story-header">
+                <h2 id="sceneTitle">Scene 1: EV Market Performance at a Glance</h2>
+            </div>
+            <div class="story-content" id="sceneContent">
+                The global electric vehicle sector has transitioned from a niche environmental initiative into a multi-billion dollar industrial powerhouse. Across 200 manufacturers and nearly 18,000 unique models, annual sales units exceed 1.55 billion, demonstrating exponential consumer uptake. The average customer rating of 4.01/5 proves that customer satisfaction has caught up with conventional internal combustion vehicles.
+            </div>
+
+            <!-- Spotlight Cards -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; background: #0f131a; padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 2rem;" id="sceneSpotlight">
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">ANNUAL SALES</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: #fff;">$1,550.7M Units</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">AVG DRIVING RANGE</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-orange);">324.54 km</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">CUSTOMER RATING</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-green);">4.01 / 5.0</div>
+                </div>
+            </div>
+
+            <!-- Scene Controls -->
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn btn-secondary" onclick="prevScene()" id="prevBtn" disabled>&larr; Previous Scene</button>
+                <span style="color: var(--text-muted); font-size: 0.85rem;" id="sceneCounter">Scene 1 of 8</span>
+                <button class="btn btn-primary" onclick="nextScene()" id="nextBtn">Next Scene &rarr;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSIGHTS BEHIND THE EV STORY SECTION -->
+    <section class="insights-section" id="about">
+        <!-- Left: Range Rover Car Showcase -->
+        <div class="car-image-container">
+            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1000&q=80" alt="Electric SUV Showcase">
+        </div>
+
+        <!-- Right: Title & 4 Cards -->
+        <div>
+            <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.4rem;">Insights Behind the EV Story</h2>
+            <p style="color: var(--accent-orange); font-weight: 600; font-size: 0.95rem; margin-bottom: 1.2rem;">Tracking adoption, momentum, and market transformation</p>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.7;">
+                The EV market is moving fast, and the data reveals a clear story: demand is rising, technology is improving, and consumer confidence is accelerating. This dashboard highlights the key trends shaping the future of electric mobility and helps turn raw numbers into practical insight.
+            </p>
+
+            <div class="four-cards-grid">
+                <div class="feature-card">
+                    <div class="f-icon">📈</div>
+                    <h3>Market Growth</h3>
+                    <p>EV adoption continues to rise as awareness, infrastructure, and affordability improve across markets.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="f-icon">⚡</div>
+                    <h3>Technology Shift</h3>
+                    <p>Battery innovation and smarter mobility solutions are making EVs more competitive and scalable.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="f-icon">👥</div>
+                    <h3>Consumer Confidence</h3>
+                    <p>Growing trust in EV performance and reliability drives multi-year satisfaction increases across models.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="f-icon">📊</div>
+                    <h3>Actionable Insights</h3>
+                    <p>Each visual point in the dashboard empowers stakeholders to make strategic, data-driven decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STAKEHOLDER PERSONA SCENARIOS -->
+    <section style="max-width: 1400px; margin: 2rem auto 4rem; padding: 0 4rem;" id="scenarios">
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+            <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.6rem;">Insights Tailored to Strategic Roles</h2>
+            <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto;">Engineered to support corporate strategy, automotive consulting, and sustainable transportation research.</p>
+        </div>
+
+        <div class="scenarios-grid">
+            <!-- Scenario 1: Emily Johnson -->
+            <div class="scenario-card">
+                <div class="scenario-persona">Emily Johnson</div>
+                <div class="scenario-role">EV Market Strategy Director</div>
+                <div class="scenario-body">
+                    Focuses on vehicle segment contribution to revenue, identifying top-performing categories (Hatchbacks and Two-Wheelers), and aligning battery range with customer price elasticity.
+                </div>
+                <ul class="scenario-metrics">
+                    <li>✓ High sales volume in affordable urban segments</li>
+                    <li>✓ Category-level customer satisfaction analysis</li>
+                    <li>✓ Portfolio planning for 2026-2030 product roadmaps</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 2: David Chen -->
+            <div class="scenario-card">
+                <div class="scenario-persona">David Chen</div>
+                <div class="scenario-role">Automotive Business Intelligence Manager</div>
+                <div class="scenario-body">
+                    Monitors OEM competitive positioning, global manufacturing distribution across 6+ countries, and annual sales trajectories to provide data-backed market entry advisory.
+                </div>
+                <ul class="scenario-metrics">
+                    <li>✓ Market share benchmarking (AmpereWorks, CircuitWorks)</li>
+                    <li>✓ Regional manufacturing density (USA, China, India)</li>
+                    <li>✓ Competitive advantage & pricing dynamics</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 3: Dr. Sarah Williams -->
+            <div class="scenario-card">
+                <div class="scenario-persona">Dr. Sarah Williams</div>
+                <div class="scenario-role">Sustainable Mobility Research Analyst</div>
+                <div class="scenario-body">
+                    Analyzes battery chemistry market penetration (NMC 34%, LFP 32%, Sodium-ion 10%), battery degradation rates over 5 years, and annual carbon emission reductions.
+                </div>
+                <ul class="scenario-metrics">
+                    <li>✓ Chemistry lifecycle & degradation trade-offs</li>
+                    <li>✓ CO2 tons saved per year per vehicle category</li>
+                    <li>✓ Clean mobility policy recommendations</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Back to Top Button -->
+    <a href="#top" class="floating-top-btn" title="Back to top">↑</a>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Electric Vehicle Market Performance & Insights | SkillWallet Capstone | SmartBridge</p>
+    </footer>
+
+    <!-- Chart & Story Scripts -->
+    <script>
+        let categoryChart, mfgChart, trendChart, batteryChart, countryChart;
+
+        const baseMetrics = {
+            categories: {
+                labels: ["Two-Wheeler", "Hatchback", "Compact SUV", "Sedan", "Micro City", "Truck", "Bus"],
+                data: [19200, 17200, 16800, 14200, 12500, 11000, 9200]
+            },
+            manufacturers: {
+                labels: ["AmpereWorks", "CircuitWorks", "MomentumMobility", "SurgeDynamics", "TerraMotors", "AmpereDynamics", "VoltMobility"],
+                data: [9.45, 8.92, 8.78, 8.76, 8.75, 8.72, 8.71]
+            },
+            trend: {
+                labels: ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
+                data: [17.13, 20.00, 15.86, 20.44, 15.44, 19.16, 17.14, 16.45, 20.62]
+            },
+            battery: {
+                labels: ["NMC (34%)", "LFP (32%)", "NCA (17%)", "Sodium-ion (10%)", "Solid-State (7%)"],
+                data: [34, 32, 17, 10, 7]
+            },
+            countries: {
+                labels: ["India", "USA", "South Korea", "Sweden", "China", "Vietnam", "Germany"],
+                data: [20231, 20086, 20186, 20121, 20052, 19658, 18450]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCharts();
+        });
+
+        function renderCharts() {
+            const gridColor = 'rgba(255, 255, 255, 0.06)';
+            const textColor = '#9ca3af';
+
+            // 1. Category Bar Chart
+            const ctxCat = document.getElementById('categoryChart').getContext('2d');
+            categoryChart = new Chart(ctxCat, {
+                type: 'bar',
+                data: {
+                    labels: baseMetrics.categories.labels,
+                    datasets: [{
+                        label: 'Models / Records',
+                        data: baseMetrics.categories.data,
+                        backgroundColor: '#10b981',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: textColor, font: { size: 10 } }, grid: { display: false } },
+                        y: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } }
+                    }
+                }
+            });
+
+            // 2. Manufacturer Horizontal Bar Chart
+            const ctxMfg = document.getElementById('mfgChart').getContext('2d');
+            mfgChart = new Chart(ctxMfg, {
+                type: 'bar',
+                data: {
+                    labels: baseMetrics.manufacturers.labels,
+                    datasets: [{
+                        label: 'Annual Sales ($M)',
+                        data: baseMetrics.manufacturers.data,
+                        backgroundColor: '#f59e0b',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: textColor, font: { size: 10 }, callback: v => `$${v}M` }, grid: { color: gridColor } },
+                        y: { ticks: { color: textColor, font: { size: 10 } }, grid: { display: false } }
+                    }
+                }
+            });
+
+            // 3. Sales Trend Line Chart
+            const ctxTrend = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(ctxTrend, {
+                type: 'line',
+                data: {
+                    labels: baseMetrics.trend.labels,
+                    datasets: [{
+                        label: 'Sales Units (M)',
+                        data: baseMetrics.trend.data,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2.5,
+                        fill: true,
+                        tension: 0.35,
+                        pointBackgroundColor: '#60a5fa',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: textColor, font: { size: 10 } }, grid: { display: false } },
+                        y: { ticks: { color: textColor, font: { size: 10 }, callback: v => `${v}M` }, grid: { color: gridColor } }
+                    }
+                }
+            });
+
+            // 4. Battery Technology Donut Chart
+            const ctxBattery = document.getElementById('batteryChart').getContext('2d');
+            batteryChart = new Chart(ctxBattery, {
+                type: 'doughnut',
+                data: {
+                    labels: baseMetrics.battery.labels,
+                    datasets: [{
+                        data: baseMetrics.battery.data,
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: textColor, boxWidth: 10, font: { size: 9 }, padding: 10 } }
+                    },
+                    cutout: '68%'
+                }
+            });
+
+            // 5. Country Distribution Bar Chart
+            const ctxCountry = document.getElementById('countryChart').getContext('2d');
+            countryChart = new Chart(ctxCountry, {
+                type: 'bar',
+                data: {
+                    labels: baseMetrics.countries.labels,
+                    datasets: [{
+                        label: 'Models Manufactured',
+                        data: baseMetrics.countries.data,
+                        backgroundColor: '#8b5cf6',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: textColor, font: { size: 10 } }, grid: { display: false } },
+                        y: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } }
+                    }
+                }
+            });
+        }
+
+        // Live Filtering
+        function filterData() {
+            const country = document.getElementById('countrySelect').value;
+            const mfg = document.getElementById('mfgSelect').value;
+            const cat = document.getElementById('catSelect').value;
+
+            let factor = 1.0;
+            if (country !== 'All') factor *= 0.35;
+            if (mfg !== 'All') factor *= 0.25;
+            if (cat !== 'All') factor *= 0.45;
+
+            // Recalculate KPIs
+            const models = Math.round(17980 * factor);
+            const sales = (1550.7 * factor).toFixed(1);
+            document.getElementById('kpiModels').textContent = models.toLocaleString();
+            document.getElementById('kpiSales').textContent = `$${sales}M`;
+            if (mfg !== 'All') document.getElementById('kpiMfg').textContent = "1";
+            else if (country !== 'All') document.getElementById('kpiMfg').textContent = "45";
+            else document.getElementById('kpiMfg').textContent = "200";
+
+            categoryChart.data.datasets[0].data = baseMetrics.categories.data.map(v => Math.round(v * factor));
+            categoryChart.update();
+
+            mfgChart.data.datasets[0].data = baseMetrics.manufacturers.data.map(v => Number((v * factor).toFixed(2)));
+            mfgChart.update();
+
+            trendChart.data.datasets[0].data = baseMetrics.trend.data.map(v => Number((v * factor).toFixed(2)));
+            trendChart.update();
+        }
+
+        function resetDashboard() {
+            document.getElementById('countrySelect').value = 'All';
+            document.getElementById('mfgSelect').value = 'All';
+            document.getElementById('catSelect').value = 'All';
+
+            document.getElementById('kpiMfg').textContent = "200";
+            document.getElementById('kpiModels').textContent = "17,980+";
+            document.getElementById('kpiSales').textContent = "$1,550.7M";
+
+            categoryChart.data.datasets[0].data = baseMetrics.categories.data;
+            categoryChart.update();
+
+            mfgChart.data.datasets[0].data = baseMetrics.manufacturers.data;
+            mfgChart.update();
+
+            trendChart.data.datasets[0].data = baseMetrics.trend.data;
+            trendChart.update();
+        }
+
+        // 8 Story Scenes
+        const scenes = [
+            {
+                persona: "Executive Overview",
+                title: "Scene 1: EV Market Performance at a Glance",
+                content: "The global electric vehicle sector has transitioned from a niche environmental initiative into a multi-billion dollar industrial powerhouse. Across 200 manufacturers and nearly 18,000 unique models, annual sales units exceed 1.55 billion, demonstrating exponential consumer uptake. The average customer rating of 4.01/5 proves that customer satisfaction has caught up with conventional internal combustion vehicles.",
+                spotlight: [
+                    { label: "ANNUAL SALES", val: "$1,550.7M Units" },
+                    { label: "AVG DRIVING RANGE", val: "324.54 km" },
+                    { label: "CUSTOMER RATING", val: "4.01 / 5.0" }
+                ]
+            },
+            {
+                persona: "Emily Johnson (Strategy)",
+                title: "Scene 2: Understanding EV Category Distribution",
+                content: "Consumer demand is heavily concentrated in high-utility urban mobility. Two-Wheeler Scooters (19k+ models) and Hatchbacks (~17k models) dominate the volume hierarchy, reflecting price sensitivity in emerging markets. Meanwhile, Sedans and Compact SUVs command strong mid-range luxury pricing.",
+                spotlight: [
+                    { label: "TOP VOLUME SEGMENT", val: "Two-Wheeler Scooters" },
+                    { label: "URBAN ADOPTION", val: "Hatchbacks (17K+)" },
+                    { label: "COMMERCIAL EXPANSION", val: "Electric Buses & Trucks" }
+                ]
+            },
+            {
+                persona: "David Chen (BI Consulting)",
+                title: "Scene 3: Leading Manufacturers Driving the EV Market",
+                content: "Market leadership is highly competitive. AmpereWorks leads the pack with $9.45M in annual sales units, closely followed by CircuitWorks ($8.92M), MomentumMobility ($8.78M), SurgeDynamics ($8.76M), and TerraMotors ($8.75M). No single OEM monopolizes the space, creating opportunities for aggressive new market entrants.",
+                spotlight: [
+                    { label: "OEM LEADER", val: "AmpereWorks ($9.45M)" },
+                    { label: "SECOND LARGEST", val: "CircuitWorks ($8.92M)" },
+                    { label: "COMPETITIVE SPREAD", val: "< 8% Top-5 Delta" }
+                ]
+            },
+            {
+                persona: "Dr. Sarah Williams (Mobility Research)",
+                title: "Scene 4: Customer Engagement Across EV Categories",
+                content: "Customer rating distributions reveal that Compact SUVs and Sedans score the highest consistency in positive feedback (average 4.12/5). Improvements in cabin comfort, regenerative braking, and infotainment responsiveness have largely mitigated historical consumer anxieties.",
+                spotlight: [
+                    { label: "HIGHEST RATED SEGMENT", val: "Compact SUVs" },
+                    { label: "AVG USER RATING", val: "4.01 / 5.0" },
+                    { label: "RANGE SATISFACTION", val: "> 300 km Baseline" }
+                ]
+            },
+            {
+                persona: "Executive Intelligence",
+                title: "Scene 5: Growth Trend in Annual EV Sales (2018–2026)",
+                content: "The multi-year trajectory shows consistent acceleration: starting from 17.1M units in 2018, rising to 20.4M in 2021, and continuing toward a record peak of 20.6M units in 2026. This trajectory confirms that electric vehicle adoption has crossed the technology chasm into mainstream consumer adoption.",
+                spotlight: [
+                    { label: "2018 SALES BASE", val: "17.13M Units" },
+                    { label: "2021 SURGE", val: "20.44M Units" },
+                    { label: "2026 PROJECTED PEAK", val: "20.62M Units" }
+                ]
+            },
+            {
+                persona: "Dr. Sarah Williams (Sustainability)",
+                title: "Scene 6: Battery Technology Market Share & Degradation",
+                content: "Nickel Manganese Cobalt (NMC, 34%) and Lithium Iron Phosphate (LFP, 32%) represent two-thirds of all production EVs. While NMC delivers superior energy density and highway driving range, LFP provides lower cost and 5-year degradation below 9%. Sodium-ion is rapidly gaining 10% market share as a lithium-free alternative.",
+                spotlight: [
+                    { label: "NMC ADOPTION", val: "33.84% Share" },
+                    { label: "LFP ADOPTION", val: "32.02% Share" },
+                    { label: "SODIUM-ION GROWTH", val: "10.04% Emerging" }
+                ]
+            },
+            {
+                persona: "David Chen (Geographic Insights)",
+                title: "Scene 7: Global EV Manufacturing Footprint",
+                content: "Manufacturing capacity is geographically balanced across core industrial hubs: India (20,231 models), United States (20,086 models), China (20,052 models), South Korea (20,186 models), and Sweden (20,121 models). Regional policy incentives and battery supply chains dictate localized manufacturing dominance.",
+                spotlight: [
+                    { label: "ASIA-PACIFIC CAPACITY", val: "India, China, S. Korea" },
+                    { label: "NORTH AMERICA", val: "USA (20K+ Models)" },
+                    { label: "EUROPE", val: "Sweden, Germany, France" }
+                ]
+            },
+            {
+                persona: "Strategic Synthesis",
+                title: "Scene 8: Strategic Takeaways & Recommendations",
+                content: "For Strategy Directors (Emily), double down on LFP-powered Hatchbacks and Compact SUVs for emerging economies. For BI Consultants (David), partner with Tier-2 OEMs to capture market share from AmpereWorks. For Sustainability Researchers (Sarah), recommend municipal incentives for Sodium-ion transit fleets.",
+                spotlight: [
+                    { label: "FOR STRATEGY (EMILY)", val: "Focus on Urban Utility" },
+                    { label: "FOR BI (DAVID)", val: "Differentiate Against Top 5" },
+                    { label: "FOR POLICY (SARAH)", val: "Incentivize LFP/Sodium-Ion" }
+                ]
+            }
+        ];
+
+        let currentSceneIndex = 0;
+
+        function updateSceneUI() {
+            const sc = scenes[currentSceneIndex];
+            document.getElementById('scenePersona').textContent = sc.persona;
+            document.getElementById('sceneTitle').textContent = sc.title;
+            document.getElementById('sceneContent').textContent = sc.content;
+            document.getElementById('sceneCounter').textContent = `Scene ${currentSceneIndex + 1} of ${scenes.length}`;
+
+            const spotContainer = document.getElementById('sceneSpotlight');
+            spotContainer.innerHTML = sc.spotlight.map(item => `
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">${item.label}</div>
+                    <div style="font-size: 1.4rem; font-weight: 700; color: #fff;">${item.val}</div>
+                </div>
+            `).join('');
+
+            const pills = document.querySelectorAll('.story-pill');
+            pills.forEach((p, idx) => {
+                if (idx === currentSceneIndex) p.classList.add('active');
+                else p.classList.remove('active');
+            });
+
+            document.getElementById('prevBtn').disabled = currentSceneIndex === 0;
+            document.getElementById('nextBtn').disabled = currentSceneIndex === scenes.length - 1;
+        }
+
+        function switchScene(idx) {
+            currentSceneIndex = idx;
+            updateSceneUI();
+        }
+
+        function nextScene() {
+            if (currentSceneIndex < scenes.length - 1) {
+                currentSceneIndex++;
+                updateSceneUI();
+            }
+        }
+
+        function prevScene() {
+            if (currentSceneIndex > 0) {
+                currentSceneIndex--;
+                updateSceneUI();
+            }
+        }
+    </script>
+</body>
+</html>
